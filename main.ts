@@ -13,7 +13,8 @@ function stop () {
     basic.clearScreen()
 }
 devices.onGamepadButton(MesDpadButtonInfo.BDown, function () {
-    clawdown()
+    updown = -1
+    basic.showArrow(ArrowNames.South)
 })
 devices.onGamepadButton(MesDpadButtonInfo._2Down, function () {
     clawopen()
@@ -25,27 +26,31 @@ devices.onGamepadButton(MesDpadButtonInfo.CDown, function () {
     turnleft()
 })
 function clawdown () {
-    if (v < 100) {
-        v += 5
-        wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, v)
+    if (angle < 100) {
+        angle += 1
+        wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, angle)
     }
 }
 function clawup () {
-    if (v > 20) {
-        v += -5
-        wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, v)
+    if (angle > 20) {
+        angle += -1
+        wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, angle)
     }
 }
 devices.onGamepadButton(MesDpadButtonInfo.ADown, function () {
-    clawup()
+    updown = 1
+    basic.showArrow(ArrowNames.North)
 })
 function clawclose () {
     wuKong.setMotorSpeed(wuKong.MotorList.M1, -80)
-    basic.showIcon(IconNames.Square)
+    basic.showIcon(IconNames.SmallDiamond)
 }
+devices.onGamepadButton(MesDpadButtonInfo.BUp, function () {
+    updown = 0
+})
 function clawopen () {
     wuKong.setMotorSpeed(wuKong.MotorList.M1, 80)
-    basic.showIcon(IconNames.SmallDiamond)
+    basic.showIcon(IconNames.Square)
 }
 devices.onGamepadButton(MesDpadButtonInfo._1Down, function () {
     clawclose()
@@ -60,10 +65,22 @@ function turnleft () {
     wuKong.setMotorSpeed(wuKong.MotorList.M2, -20)
     basic.showArrow(ArrowNames.West)
 }
+devices.onGamepadButton(MesDpadButtonInfo.AUp, function () {
+    updown = 0
+})
 devices.onGamepadButton(MesDpadButtonInfo.CUp, function () {
     stop()
 })
-let v = 0
+let updown = 0
+let angle = 0
 bluetooth.startLEDService()
-v = 90
-wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, v)
+angle = 90
+wuKong.setServoAngle(wuKong.ServoTypeList._360, wuKong.ServoList.S0, angle)
+updown = 0
+loops.everyInterval(100, function () {
+    if (updown < 0) {
+        clawdown()
+    } else if (updown > 0) {
+        clawup()
+    }
+})
