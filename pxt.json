@@ -1,0 +1,32 @@
+{
+    "name": "Robot Arm (via Gamepad)",
+    "description": "",
+    "dependencies": {
+        "core": "*",
+        "servo": "*",
+        "bluetooth": "*",
+        "devices": "*",
+        "microphone": "*",
+        "wuKong": "github:elecfreaks/pxt-wukong#v1.4.8"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "branch": "v2.0.18",
+        "tag": "v2.0.18",
+        "commits": "https://github.com/microsoft/pxt-microbit/commits/d18a5640c3e8676a71291980c07bbf67bc64c2a9",
+        "target": "4.0.16",
+        "pxt": "5.15.20",
+        "targetId": "microbit"
+    },
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "blocksprj"
+}
