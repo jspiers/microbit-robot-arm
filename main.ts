@@ -47,6 +47,7 @@ function clawclose () {
 }
 devices.onGamepadButton(MesDpadButtonInfo.BUp, function () {
     updown = 0
+    basic.clearScreen()
 })
 function clawopen () {
     wuKong.setMotorSpeed(wuKong.MotorList.M1, 80)
@@ -67,6 +68,7 @@ function turnleft () {
 }
 devices.onGamepadButton(MesDpadButtonInfo.AUp, function () {
     updown = 0
+    basic.clearScreen()
 })
 devices.onGamepadButton(MesDpadButtonInfo.CUp, function () {
     stop()
